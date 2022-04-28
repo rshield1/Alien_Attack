@@ -34,9 +34,11 @@ class AlienInvasion:
         while True:
             #Watch for keyboard and mouse events
             self._check_events()
-            self.ship.update()
-            self._update_bullets()
-            self._update_aliens()
+            if self.stats.game_active:
+                self.ship.update()
+                self._update_bullets()
+                self._update_aliens()
+
             self._update_screen()
 
             #Redraw the screen during each pass through the loop
@@ -150,7 +152,7 @@ class AlienInvasion:
         #respond if any aliens have reached an edge
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
-        self.settings.fleet_direction *= 1
+        self.settings.fleet_direction *= -1
     
     def _ship_hit(self):
         if self.stats.ships_left > 0:
@@ -165,7 +167,7 @@ class AlienInvasion:
             self.stats.game_active = False
         
 
-    def _check_alien_bottom(self):
+    def _check_aliens_bottom(self):
         screen_rect = self.screen.get_rect()
         for alien in self.aliens.sprites():
             if alien.rect.bottom >= screen_rect.bottom:
