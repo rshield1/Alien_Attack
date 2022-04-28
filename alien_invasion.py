@@ -188,6 +188,10 @@ class AlienInvasion:
             self.stats.game_active = True
             #get rid of any remaining alien and bullets.
             self.aliens.empty()
+            self.bullets.empty()
+
+            self._create_fleet()
+            self.ship.center_ship()
 if __name__ == '__main__':
     #Make a game instance and run the game.
     ai = AlienInvasion()
